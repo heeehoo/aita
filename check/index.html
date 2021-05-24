@@ -27,17 +27,42 @@
             <h1 class="text-white text-title-shadow">Taking attendance</h1>
         </div>
 
-        <div class="text-center mb-5">
-            <div id="webcam-container" class="check-webcam-container">
-                <canvas id="canvas" width="350" height="350">ghdhgdhg</canvas>
+        <div class="container">
+
+            <div class="row row-cols-2">
+
+                <div class="col">
+
+                    <div class="text-center mb-5">
+                        <div id="webcam-container" class="check-webcam-container">
+                            <canvas id="canvas" width="350" height="350">ghdhgdhg</canvas>
+                        </div>
+                    </div>
+
+                </div>
+                
+
+                <div class="col">
+
+                    <div class="check-list-wrap mb-5" style="height: 350px;">
+                        <h5 class="text-white mb-3">Check list</h5>
+                        <div class="px-1">
+                            <div id="studentH" class="text-white mb-3 not-yet">Student H</div>
+                            <div id="studentG" class="text-white not-yet">Student G</div>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
+
         </div>
 
-        <div class="check-list-wrap">
-            <h5 class="text-white mb-3">Check list</h5>
+        <div class="check-list-wrap" style="max-width: 400px;">
+            <h5 class="text-white mb-3">Notice</h5>
             <div class="px-1">
-                <div id="studentH" class="text-white mb-3 not-yet">Student H</div>
-                <div id="studentG" class="text-white not-yet">Student G</div>
+                <div id="studentH" class="text-white mb-3 check-student">Checked student is green badge.</div>
+                <div id="studentG" class="text-white not-yet">Unchecked student is grey badge</div>
             </div>
         </div>
 
