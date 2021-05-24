@@ -8,16 +8,46 @@
     <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <title>AI-TA</title>
 </head>
 
-<body>
-    <div>Teachable Machine Image Model</div>
-    <button type="button" onclick="init()">Start</button>
-    <div id="webcam-container"></div>
-    <div id="label-container"></div>
+<body class="main-background">
+
+    <div class="video-wrap">
+        <div class="video">
+            <video autoplay muted loop src="../video/back2.mp4"></video>
+        </div>
+    </div>
+
+    <div class="main-contents">
+
+        <div class="text-center py-5 mb-5">
+            <h1 class="text-white text-title-shadow">Taking attendance</h1>
+        </div>
+
+        <div class="text-center mb-5">
+            <div id="webcam-container" class="check-webcam-container">
+                <canvas id="canvas" width="350" height="350">ghdhgdhg</canvas>
+            </div>
+        </div>
+
+        <div class="check-list-wrap">
+            <h5 class="text-white mb-3">Check list</h5>
+            <div class="px-1">
+                <div id="studentH" class="text-white mb-3 not-yet">Student H</div>
+                <div id="studentG" class="text-white not-yet">Student G</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="nav-btns">
+        <a class="btn left" href="/"><i class="bi bi-caret-left-fill"></i>Intro</a>
+        <a class="btn right" href="/pose">Class<i class="bi bi-caret-right-fill"></i></a>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
     <script type="text/javascript">
@@ -27,7 +57,20 @@
         // the link to your model provided by Teachable Machine export panel
         const URL = "./my_model/";
 
-        let model, webcam, labelContainer, maxPredictions;
+        let model, webcam, labelContainer, maxPredictions, ctx;
+
+        const studentH = document.getElementById('studentH');
+        const studentG = document.getElementById('studentG');
+
+        function checkH() {
+            studentH.classList.remove('not-yet')
+            studentH.classList.add('check-student')
+        }
+
+        function checkG() {
+            studentH.classList.remove('not-yet')
+            studentH.classList.add('check-student')
+        }
 
         // Load the image model and setup the webcam
         async function init() {
@@ -43,17 +86,23 @@
 
             // Convenience function to setup a webcam
             const flip = true; // whether to flip the webcam
-            webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
+            const size = 350;
+            webcam = new tmImage.Webcam(size, size, flip); // width, height, flip
             await webcam.setup(); // request access to the webcam
             await webcam.play();
             window.requestAnimationFrame(loop);
 
+            const canvas = document.getElementById("canvas");
+            canvas.width = size; canvas.height = size;
+            ctx = canvas.getContext("2d");
+
             // append elements to the DOM
-            document.getElementById("webcam-container").appendChild(webcam.canvas);
-            labelContainer = document.getElementById("label-container");
-            for (let i = 0; i < maxPredictions; i++) { // and class labels
-                labelContainer.appendChild(document.createElement("div"));
-            }
+
+            // document.getElementById("webcam-container").appendChild(webcam.canvas);
+            // labelContainer = document.getElementById("label-container");
+            // for (let i = 0; i < maxPredictions; i++) { // and class labels
+            //     labelContainer.appendChild(document.createElement("div"));
+            // }
         }
 
         async function loop() {
@@ -66,12 +115,21 @@
         async function predict() {
             // predict can take in an image, video or canvas html element
             const prediction = await model.predict(webcam.canvas);
-            for (let i = 0; i < maxPredictions; i++) {
-                const classPrediction =
-                    prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-                labelContainer.childNodes[i].innerHTML = classPrediction;
+
+            const hun = prediction[0].probability.toFixed(1);
+            const gang = prediction[1].probability.toFixed(1);
+            const empty = prediction[2].probability.toFixed(1);
+
+            if(0.9 < hun) {
+                checkH();
+            }else if(0.9 < gang) {
+                checkG();
             }
+
+            ctx.drawImage(webcam.canvas, 0, 0);
         }
+
+        init();
     </script>
 </body>
 

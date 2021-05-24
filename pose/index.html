@@ -13,70 +13,77 @@
     <title>AI-TA</title>
 </head>
 
-<body>
+<body class="main-background">
 
-    <div class="container">
+    <div class="video-wrap">
+        <div class="video">
+            <video autoplay muted loop src="../video/back2.mp4"></video>
+        </div>
+    </div>
 
-        <div class="row row-cols-4 p-5">
+    <div class="main-contents">
 
-            <div class="col">
-                <div id="student" class="p-3 shadow rounded text-center status">
-                    <h5 class="mb-3">학생</h5>
-                    <!-- <i class="bi bi-person-square dummy-human"></i> -->
-                    <div style="padding: 22px 0"><canvas id="canvas"></canvas></div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="p-3 shadow rounded text-center status focus">
-                    <h5 class="mb-3">집중하는 학생</h5>
-                    <i class="bi bi-person-square dummy-human"></i>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="p-3 shadow rounded text-center status not-focus">
-                    <h5 class="mb-3">딴짓하는 학생</h5>
-                    <i class="bi bi-person-square dummy-human"></i>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="p-3 shadow rounded text-center status empty">
-                    <h5 class="mb-3">없어진 학생</h5>
-                    <i class="bi bi-person-square dummy-human"></i>
-                </div>
-            </div>
-
+        <div class="text-center py-5 mb-5">
+            <h1 class="text-white text-title-shadow">In class</h1>
         </div>
 
-        <!-- <div>
-            <label for="noneRange">없어짐 기준</label>
-            <input type="range" id="noneRange" min="0.1" max="1.0" step="0.1" value="0.9"/>
-            <input type="text" id="noneRangeValue" value="0.9"/>
-        </div> -->
+        <div class="container-md">
 
-        <div>
-            <p style="white-space: pre-line;">
-                ※현재기준
+            <div class="row row-cols-4 p-5">
 
-                - none 값 0.8 이상: 없어진 학생
+                <div class="col">
+                    <div id="student" class="p-3 shadow rounded text-center status">
+                        <h5 class="mb-3 text-white">Student</h5>
+                        <div>
+                            <canvas id="canvas" width="100" height="100" style="padding: 22px 0;"></canvas>
+                        </div>
+                    </div>
+                </div>
 
-                - right, left, up, down 중 값 0.5 이상: 딴짓하는 학생
+                <div class="col">
+                    <div class="p-3 shadow rounded text-center status focus">
+                        <h5 class="mb-3 text-white">Focus</h5>
+                        <i class="bi bi-person-square dummy-human text-white"></i>
+                    </div>
+                </div>
 
-                - front 값 0.5 이상: 집중하는 학생
+                <div class="col">
+                    <div class="p-3 shadow rounded text-center status not-focus">
+                        <h5 class="mb-3 text-white">Not Focus</h5>
+                        <i class="bi bi-person-square dummy-human text-white"></i>
+                    </div>
+                </div>
 
-                * 우선순위는 없어짐, 딴짓, 집중 순
-                ** 예를들어 집중 값이 0.5 이상이더라도 없어짐 또는 딴짓이 조건에 만족할 경우 없어짐, 딴짓으로 판단
+                <div class="col">
+                    <div class="p-3 shadow rounded text-center status empty">
+                        <h5 class="mb-3 text-white">Empty</h5>
+                        <i class="bi bi-person-square dummy-human text-white"></i>
+                    </div>
+                </div>
 
+            </div>
 
-            </p>
+            <div class="px-5">
+                <p class="text-white mb-0" style="white-space: pre-line;background-color: rgba(0,0,0,.5);padding: 10px;border-radius: 5px;">
+                    ※현재기준
+
+                    - none 값 0.8 이상: 없어진 학생
+                    - right, left, up, down 중 값 0.5 이상: 딴짓하는 학생
+                    - front 값 0.5 이상: 집중하는 학생
+
+                    * 우선순위는 없어짐, 딴짓, 집중 순
+                    ** 예를들어 집중 값이 0.5 이상이더라도 없어짐 또는 딴짓이 조건에 만족할 경우 없어짐, 딴짓으로 판단
+                </p>
+            </div>
+
         </div>
 
     </div>
 
-    <!-- <div><canvas id="canvas"></canvas></div> -->
-    <!-- <div id="label-container"></div> -->
+    <div class="nav-btns">
+        <a class="btn left" href="/check"><i class="bi bi-caret-left-fill"></i>Check</a>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
     <script type="text/javascript">
@@ -158,11 +165,11 @@
             const up = prediction[4].probability.toFixed(1);
             const down = prediction[5].probability.toFixed(1);
 
-            if(0.8 < none) {
+            if (0.8 < none) {
                 studentEmpty();
-            }else if(0.5 < right || 0.5 < left || 0.5 < up ||0.5 < down) {
+            } else if (0.5 < right || 0.5 < left || 0.5 < up || 0.5 < down) {
                 studentNotFocus();
-            }else if(0.5 < front) {
+            } else if (0.5 < front) {
                 studentFocus();
             }
 

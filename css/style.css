@@ -43,21 +43,26 @@
     font-size: 35px;
     font-weight: bold;
     padding: 10px 100px;
-    background-color: #444;
+    background-color: #222;
     position: fixed;
     bottom: 25%;
     right: 20%;
     border-radius: 5px;
     box-shadow: -5px -5px rgba(0, 0, 0, .5);
-    transition: right 1s bottom 1s box-shadow 1s;
+    transition: transform 250ms;
 }
 
 .main-btn:hover{
     text-decoration: none;
     color: #fff;
+    opacity: 0.8;
+    transform: scale(1.1);
+}
+
+.main-btn:active{
+    box-shadow: -2px -2px rgba(0, 0, 0, .5);
     bottom: calc(25% + 2px);
     right: calc(20% + 2px);
-    box-shadow: -2px -2px rgba(0, 0, 0, .5);
 }
 
 .dummy-human{
@@ -66,16 +71,108 @@
 
 .status {
     border: 5px solid white;
+    background-color: rgba(0, 0, 0, .5);
 }
 
 .status.focus{
-    border: 5px solid green;
+    border: 5px solid #86E57F;
 }
 
 .status.not-focus{
-    border: 5px solid red;
+    border: 5px solid #F15F5F;
 }
 
 .status.empty{
-    border: 5px solid black;
+    border: 5px solid #8C8C8C;
+}
+
+.main-background{
+    background-color: rgb(4, 21, 29);
+}
+
+.text-title-shadow{
+    text-shadow: 2px 2px 2px rgb(255 255 255 / 50%);
+}
+
+.check-webcam-container {
+    height: 350px;
+}
+
+.check-webcam-container canvas {
+    box-sizing: border-box;
+    border: 1px solid #353535;
+    background-color: #353535;
+    border-radius: 5px;
+}
+
+.check-list-wrap {
+    background-color: rgba(0, 0, 0, .5);    
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 350px;
+    margin: auto;
+}
+
+.main-contents{
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    width: 100%;
+}
+
+.nav-btns{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    padding: 0 20px;
+}
+
+.nav-btns .btn{
+    text-decoration: none;
+    color: #fff;
+    font-size: 35px;
+    font-weight: bold;
+    padding: 10px 100px;
+    background-color: #222;
+    border-radius: 5px;
+    transition: transform 250ms;
+}
+
+.nav-btns .btn:hover{
+    text-decoration: none;
+    opacity: 0.8;
+    transform: scale(1.1);
+}
+
+.nav-btns .btn.left{
+    box-shadow: 5px -5px rgba(0, 0, 0, .5);
+    float: left;
+}
+
+.nav-btns .btn.right{
+    box-shadow: -5px -5px rgba(0, 0, 0, .5);
+    float: right;
+}
+
+.not-yet::after{
+    content: 'Not yet';
+    display: inline;
+    background-color: #353535;
+    float: right;
+    font-size: small;
+    padding: 2px 10px;
+    font-weight: bold;
+    border-radius: 3px;
+}
+
+.check-student::after{
+    content: 'Check!';
+    display: inline;
+    background-color: #23bb05;
+    float: right;
+    font-size: small;
+    padding: 2px 10px;
+    font-weight: bold;
+    border-radius: 3px;
 }
