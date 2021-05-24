@@ -11,6 +11,7 @@
 <body>
     <canvas id="canvas" width="350" height="350"></canvas>
     <button onclick="init();">start</button>
+    <input type="text" id="testtxt">
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
     <script type="text/javascript">
@@ -19,6 +20,8 @@
 
         // the link to your model provided by Teachable Machine export panel
         const URL = "./my_model/";
+
+        const testtxt = document.getElementById('testtxt');
 
         let model, webcam, labelContainer, maxPredictions, ctx;
 
@@ -63,6 +66,7 @@
 
         // run the webcam image through the image model
         async function predict() {
+            testtxt.value = `${Math.random()}`;
             // predict can take in an image, video or canvas html element
             // const prediction = await model.predict(webcam.canvas);
 
