@@ -93,8 +93,8 @@
         }
 
         function checkG() {
-            studentH.classList.remove('not-yet')
-            studentH.classList.add('check-student')
+            studentG.classList.remove('not-yet')
+            studentG.classList.add('check-student')
         }
 
         // Load the image model and setup the webcam
@@ -147,7 +147,9 @@
 
             if(0.9 < hun) {
                 checkH();
-            }else if(0.9 < gang) {
+            }
+            
+            if(0.9 < gang) {
                 checkG();
             }
 
