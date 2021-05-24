@@ -100,8 +100,8 @@
 
 .check-webcam-container canvas {
     box-sizing: border-box;
-    border: 1px solid #353535;
-    background-color: #353535;
+    border: 1px solid #222;
+    background-color: rgba(0, 0, 0, .5);
     border-radius: 5px;
 }
 
